@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tell us more | Loyman Automotive</title>
+<meta name="description" content="Share your feedback privately with Loyman Automotive — we want to put things right.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%2316181d'/%3E%3Ctext x='50' y='70' font-family='Arial Black,Arial' font-size='62' font-weight='900' fill='%23e11d2a' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="loaded">
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html"><span class="dot"></span>LOYMAN <span>AUTOMOTIVE</span></a>
+    <nav class="nav-links" id="navlinks">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="nav-cta" href="tel:+64223979395">📞 022 397 9395</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+  </div>
+</header>
+
+<div class="rate-wrap" style="padding-bottom:40px">
+  <span class="kicker" style="color:var(--accent)">Private feedback</span>
+  <h1 style="font-size:clamp(1.9rem,5vw,2.8rem);margin-bottom:10px">Thanks for being honest</h1>
+  <p style="color:var(--muted);max-width:520px;margin:0 auto">Sorry we didn't quite hit the mark. Tell us what happened and it comes straight to the team — no public post, just a chance for us to make it right.</p>
+</div>
+
+<div style="max-width:640px;margin:0 auto;padding:0 24px 80px">
+  <div class="success" id="ok">Thanks — your feedback has been sent straight to the team. We'll be in touch.</div>
+  <form class="contact" id="pf" action="https://formsubmit.co/loymanautomotive@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Private feedback — Loyman Automotive website">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <div class="two">
+      <div class="field"><label for="name">Name</label><input id="name" name="Name" type="text" required placeholder="Your name"></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="Email" type="email" required placeholder="you@email.com"></div>
+    </div>
+    <div class="field"><label for="rating">Your rating</label><input id="rating" name="Rating" type="text" readonly></div>
+    <div class="field"><label for="fb">What went wrong?</label><textarea id="fb" name="Feedback" required placeholder="Tell us what happened and how we can put it right."></textarea></div>
+    <button class="btn btn-primary" type="submit">Send privately →</button>
+  </form>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-bottom" style="border:0;padding-top:0">
+      <span>© <span id="yr"></span> Loyman Automotive, Christchurch.</span>
+      <span><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="index.html">Home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  const params=new URLSearchParams(location.search);
+  const r=params.get('rating');
+  const stars=r?'★'.repeat(Math.max(1,Math.min(5,+r)))+' ('+r+'/5)':'Not specified';
+  document.getElementById('rating').value=stars;
+  // graceful success state via fetch
+  const form=document.getElementById('pf');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+      .then(()=>{form.style.display='none';document.getElementById('ok').classList.add('show');window.scrollTo({top:0,behavior:'smooth'});})
+      .catch(()=>{form.submit();});
+  });
+</script>
+</body>
+</html>

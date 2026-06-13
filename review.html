@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leave a Review | Loyman Automotive</title>
+<meta name="description" content="Tell us how we did — leave a review for Loyman Automotive in Christchurch.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%2316181d'/%3E%3Ctext x='50' y='70' font-family='Arial Black,Arial' font-size='62' font-weight='900' fill='%23e11d2a' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="loaded">
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html"><span class="dot"></span>LOYMAN <span>AUTOMOTIVE</span></a>
+    <nav class="nav-links" id="navlinks">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="nav-cta" href="tel:+64223979395">📞 022 397 9395</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+  </div>
+</header>
+
+<div class="rate-wrap">
+  <span class="kicker" style="color:var(--accent)">Your feedback</span>
+  <h1 style="font-size:clamp(1.9rem,5vw,2.8rem);margin-bottom:10px">How did we do?</h1>
+  <p style="color:var(--muted);max-width:480px;margin:0 auto">Tap a star to rate your experience with Loyman Automotive. We read every bit of feedback.</p>
+  <div class="rate-stars" id="stars">
+    <button data-v="1" aria-label="1 star">★</button>
+    <button data-v="2" aria-label="2 stars">★</button>
+    <button data-v="3" aria-label="3 stars">★</button>
+    <button data-v="4" aria-label="4 stars">★</button>
+    <button data-v="5" aria-label="5 stars">★</button>
+  </div>
+  <p class="rate-note">Five stars sends you to Google · anything less comes straight to us privately.</p>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-bottom" style="border:0;padding-top:0">
+      <span>© <span id="yr"></span> Loyman Automotive, Christchurch.</span>
+      <span><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="index.html">Home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  // Replace with the real Google review link when available
+  const GOOGLE_REVIEW_URL="https://g.page/r/PLACEHOLDER";
+  const stars=[...document.querySelectorAll('#stars button')];
+  stars.forEach(b=>{
+    b.addEventListener('mouseenter',()=>stars.forEach(s=>s.classList.toggle('lit',+s.dataset.v<=+b.dataset.v)));
+    b.addEventListener('click',()=>{
+      const v=+b.dataset.v;
+      if(v>=4){window.location.href=GOOGLE_REVIEW_URL;}
+      else{window.location.href="private.html?rating="+v;}
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave',()=>stars.forEach(s=>s.classList.remove('lit')));
+</script>
+</body>
+</html>
